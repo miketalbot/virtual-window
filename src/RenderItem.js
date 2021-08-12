@@ -26,7 +26,7 @@ export function RenderItem({
     !!item && (
       <Measured id={index} style={style}>
         <item.type
-          key={data ? keyFn(data) : index}
+          key={data ? keyFn(data) || index : index}
           {...{ ...item.props, [pass]: data, index }}
         />
       </Measured>

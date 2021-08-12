@@ -18,7 +18,7 @@ export function useScroll(whenScrolled, extract = v => v) {
     if (!parent) {
       return
     }
-    parent.addEventListener("scroll", handleScroll)
+    parent.addEventListener("scroll", handleScroll, { passive: true })
     return () => {
       parent.removeEventListener("scroll", handleScroll)
     }
