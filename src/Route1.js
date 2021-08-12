@@ -1,4 +1,4 @@
-import { VirtualRepeat } from "./VirtualRepeat"
+import { VirtualRepeat } from "./lib/VirtualRepeat"
 import { useStyles } from "./App"
 import { DummyItem } from "./DummyItem"
 import randomColor from "randomcolor"

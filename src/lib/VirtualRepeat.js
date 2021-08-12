@@ -4,6 +4,7 @@ import { useDebouncedRefresh } from "./useDebouncedRefresh"
 import { useScroll } from "./useScroll"
 import { RenderItem } from "./RenderItem"
 import { Simple } from "./Simple"
+import "./virtual-repeat.css"
 
 export function VirtualRepeat({
   children,

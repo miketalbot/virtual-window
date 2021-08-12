@@ -1,4 +1,4 @@
-import { VirtualFixedRepeat } from "./VirtualFixedRepeat"
+import { VirtualFixedRepeat } from "./lib/VirtualFixedRepeat"
 import { useStyles } from "./App"
 import { VirtualItem } from "./VirtualItem"
 

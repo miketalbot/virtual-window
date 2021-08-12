@@ -1,6 +1,6 @@
 import "./styles.css"
 import { makeStyles } from "@material-ui/core"
-import "./virtual-repeat.css"
+
 import { Route1 } from "./Route1"
 import { Route3 } from "./Route3"
 import { Route2 } from "./Route2"
