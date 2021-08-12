@@ -1,0 +1,12 @@
+.vr-items {
+  height: 0;
+  overflow: visible;
+}
+
+.vr-scroll-holder {
+  height: 100%;
+  flex: 1;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
