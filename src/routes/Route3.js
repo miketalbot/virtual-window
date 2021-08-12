@@ -1,17 +1,17 @@
-import { VirtualFixedRepeat } from "./lib/VirtualFixedRepeat"
-import { useStyles } from "./App"
+import { VirtualRepeat } from "lib/VirtualRepeat"
+import { useStyles } from "../App"
 import { VirtualItem } from "./VirtualItem"
 
-export function Route4() {
+export function Route3() {
   const classes = useStyles()
 
   return (
     <div className="App">
       <div className={classes.virtualBox}>
-        <VirtualFixedRepeat
+        <VirtualRepeat
           totalCount={5000000}
           item={<VirtualItem />}
-          itemSize={18}
+          overscan={1}
         />
       </div>
     </div>

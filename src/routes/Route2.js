@@ -1,5 +1,5 @@
-import { VirtualRepeat } from "./lib/VirtualRepeat"
-import { useStyles } from "./App"
+import { VirtualRepeat } from "lib/VirtualRepeat"
+import { useStyles } from "../App"
 import { DummyUser } from "./DummyUser"
 import { Buttons } from "./Buttons"
 

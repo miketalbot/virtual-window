@@ -1,10 +1,10 @@
 import "./styles.css"
 import { makeStyles } from "@material-ui/core"
 
-import { Route1 } from "./Route1"
-import { Route3 } from "./Route3"
-import { Route2 } from "./Route2"
-import { Route4 } from "./Route4"
+import { Route1 } from "./routes/Route1"
+import { Route3 } from "./routes/Route3"
+import { Route2 } from "./routes/Route2"
+import { Route4 } from "./routes/Route4"
 
 export const useStyles = makeStyles({
   virtualBox: {
