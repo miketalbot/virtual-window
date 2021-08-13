@@ -17,5 +17,15 @@ declare module 'virtual-window' {
     onVisibleChanged: (firstVisibleIndex?: number, lastVisibleIndex?: number) => void
   }
 
+  declare interface Size {
+    width: number
+    height: number
+    element: HTMLElement
+  }
+
   declare function VirtualWindow(props: VirtualWindowProps): JSX.Element
+
+  declare function useMeasurement(): [size: Size, attach: (target: HTMLElement|null|any)=>void, current: HTMLElement]
+
+
 }
