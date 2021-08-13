@@ -1,6 +1,6 @@
 {
   "name": "virtual-window",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A React component that is able to create a virtual window into data or child components.",
   "main": "dist/VirtualWindow.cjs.js",
   "module": "dist/VirtualWindow.esm.js",
@@ -34,8 +34,7 @@
     "versiony-cli": "^1.3.0"
   },
   "peerDependencies": {
-    "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+    "react": ">=16.9.0"
   },
   "scripts": {
     "build": "rollup -c",
