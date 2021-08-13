@@ -36,6 +36,7 @@ import "./virtual-repeat.css"
 export function VirtualFixedRepeat({
   list,
   totalCount = 0,
+  className = "",
   itemSize = 36,
   item = <Simple />,
   onVisibleChanged = () => {},
@@ -72,7 +73,7 @@ export function VirtualFixedRepeat({
   const style = useMemo(() => ({ height: totalHeight }), [totalHeight])
 
   return (
-    <div ref={scrollMonitor} className="vr-scroll-holder">
+    <div ref={scrollMonitor} className={`${className} vr-scroll-holder`}>
       <div style={style}>
         <div className="vr-items">{draw}</div>
       </div>

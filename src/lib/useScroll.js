@@ -33,23 +33,23 @@ import _ from "./scope"
 
 const AVOID_DIVIDE_BY_ZERO = 0.001
 
-export function useScroll(whenScrolled, extract = v => v) {
-  const observer = useObserver(measure, [])
+export function useScroll(whenScrolled) {
+  const observer = useObserver(measure)
   const scrollCallback = useRef()
   scrollCallback.current = whenScrolled
 
   const [windowHeight, setWindowHeight] = useState(AVOID_DIVIDE_BY_ZERO)
   const scroller = useRef()
-  useEffect(() => {
+  useEffect(configure, [observer])
+  return [scroller, windowHeight, scroller.current]
+
+  function configure() {
     if (!scroller.current) return
-    const parent = extract(scroller.current)
-    observer.observe(parent)
-    if (!parent) {
-      return
-    }
-    parent.addEventListener("scroll", handleScroll, { passive: true })
+    let observed = scroller.current
+    observer.observe(observed)
+    observed.addEventListener("scroll", handleScroll, { passive: true })
     return () => {
-      parent.removeEventListener("scroll", handleScroll)
+      observed.removeEventListener("scroll", handleScroll)
     }
 
     function handleScroll(event) {
@@ -64,8 +64,7 @@ export function useScroll(whenScrolled, extract = v => v) {
         })
       }
     }
-  }, [extract, observer])
-  return [scroller, windowHeight, scroller.current]
+  }
 
   function measure({ contentRect: { height } }) {
     setWindowHeight(height || AVOID_DIVIDE_BY_ZERO)

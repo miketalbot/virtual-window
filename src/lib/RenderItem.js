@@ -52,13 +52,11 @@ export function RenderItem({
   )
 
   return (
-    !!item && (
-      <Measured id={index} style={style}>
-        <item.type
-          key={data ? keyFn(data) || index : index}
-          {...{ ...item.props, [pass]: data, index }}
-        />
-      </Measured>
-    )
+    <Measured id={index} style={style}>
+      <item.type
+        key={data ? keyFn(data) || index : index}
+        {...{ ...item.props, [pass]: data, index }}
+      />
+    </Measured>
   )
 }

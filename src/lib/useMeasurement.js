@@ -30,10 +30,15 @@ For more information, please refer to <http://unlicense.org/>
 import { useCallback, useState, useRef } from "react"
 import { useObserver } from "./useObserver"
 
-export function useMeasurement(id = 0, log = false) {
+export function useMeasurement() {
   const measure = useCallback(measureItem, [])
   const observer = useObserver(measure, [])
   const currentTarget = useRef(null)
+  // a ref is just a function that is called
+  // by React when an element is mounted
+  // we use this to create an attach method
+  // that immediately observes the size
+  // of the reference
   const attach = useCallback(
     function attach(target) {
       if (!target) return
@@ -43,6 +48,9 @@ export function useMeasurement(id = 0, log = false) {
     [observer]
   )
   const [size, setSize] = useState({})
+
+  // Return the size, the attach ref and the current
+  // element attached to
   return [size, attach, currentTarget.current]
 
   function measureItem({ contentRect, target }) {
