@@ -27,7 +27,7 @@ For more information, please refer to <http://unlicense.org/>
 
 */
 
-import { useMemo, useState, useRef } from "react"
+import { useMemo, useState, useRef, useEffect } from "react"
 import { MeasuredContext } from "./Measured"
 import { useDebouncedRefresh } from "./useDebouncedRefresh"
 import { useScroll } from "./useScroll"
@@ -42,6 +42,7 @@ export function VirtualWindow({
   itemSize = 36,
   item = <Simple />,
   onVisibleChanged = () => {},
+  onConfigure = () => {},
   overscan = 2,
   ...props
 }) {
@@ -118,6 +119,12 @@ export function VirtualWindow({
 
   useVisibilityEvents()
 
+  useEffect(() => onConfigure({ expectedSize, scrollingElement }), [
+    expectedSize,
+    scrollingElement,
+    onConfigure
+  ])
+
   // Render Phase
 
   const style = useMemo(() => ({ height: totalHeight }), [totalHeight])
@@ -161,7 +168,7 @@ export function VirtualWindow({
         lastVisible = item
       }
     }
-    useMemo(() => onVisibleChanged(firstVisible, lastVisible), [
+    useEffect(() => onVisibleChanged(firstVisible, lastVisible), [
       firstVisible,
       lastVisible
     ])
