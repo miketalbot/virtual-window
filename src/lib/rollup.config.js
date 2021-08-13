@@ -2,7 +2,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel'
 import pkg from './package.json';
-import css from "rollup-plugin-import-css";
+import postcss from "rollup-plugin-postcss";
 import * as react from 'react';
 import * as reactDom from 'react-dom';
 
@@ -17,7 +17,11 @@ export default [
     },
     external: ['react'],
     plugins: [
-      css(),
+      postcss({
+        extract: false,
+        modules: true,
+        use: ['sass'],
+      }),
       babel({
         exclude: "node_modules/**",
         presets: ['@babel/env', '@babel/preset-react']
@@ -40,7 +44,11 @@ export default [
     ],
     external: ['react'],
     plugins: [
-      css(),
+      postcss({
+        extract: false,
+        modules: true,
+        use: ['sass'],
+      }),
       babel({
         exclude: "node_modules/**",
         presets: ['@babel/env', '@babel/preset-react']

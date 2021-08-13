@@ -584,6 +584,36 @@ function Simple(_ref) {
   return item || null;
 }
 
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z = ".virtual-repeat_vr-items__36v0F {\n  height: 0;\n  overflow: visible;\n}\n\n.virtual-repeat_vr-scroll-holder__LtRmX {\n  height: 100%;\n  flex: 1;\n  position: relative;\n  overflow-y: auto;\n  overflow-x: hidden;\n}\n";
+styleInject(css_248z);
+
 var _excluded = ["children", "list", "totalCount", "itemSize", "item", "onVisibleChanged", "onConfigure", "overscan"],
     _excluded2 = ["windowHeight", "expectedSize", "rendered", "totalCount", "delta", "list", "overscan", "measureContext", "top"];
 function VirtualWindow(_ref) {
