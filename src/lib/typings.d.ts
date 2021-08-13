@@ -1,10 +1,10 @@
-declare module 'virtual-window' {
-  declare interface ConfigureInfo {
+declare module "virtual-window" {
+  interface ConfigureInfo {
     expectedSize: number
     scrollingElement: HTMLElement
   }
 
-  declare interface VirtualWindowProps {
+  interface VirtualWindowProps {
     list?: any[],
     totalCount?: number,
     item?: JSX.Element,
@@ -17,15 +17,15 @@ declare module 'virtual-window' {
     onVisibleChanged: (firstVisibleIndex?: number, lastVisibleIndex?: number) => void
   }
 
-  declare interface Size {
+  interface Size {
     width: number
     height: number
     element: HTMLElement
   }
 
-  declare function VirtualWindow(props: VirtualWindowProps): JSX.Element
+  function VirtualWindow(props: VirtualWindowProps): JSX.Element
 
-  declare function useMeasurement(): [size: Size, attach: (target: HTMLElement|null|any)=>void, current: HTMLElement]
+  function useMeasurement(): [size: Size, attach: (target: HTMLElement | null | any) => void, current: HTMLElement]
 
 
 }
