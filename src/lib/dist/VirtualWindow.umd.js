@@ -618,6 +618,7 @@
   }
 
   var css_248z = ".virtual-repeat_vr-items__36v0F {\n  height: 0;\n  overflow: visible;\n}\n\n.virtual-repeat_vr-scroll-holder__LtRmX {\n  height: 100%;\n  flex: 1;\n  position: relative;\n  overflow-y: auto;\n  overflow-x: hidden;\n}\n";
+  var css = {"vr-items":"virtual-repeat_vr-items__36v0F","vr-scroll-holder":"virtual-repeat_vr-scroll-holder__LtRmX"};
   styleInject(css_248z);
 
   var _excluded = ["children", "list", "totalCount", "itemSize", "item", "onVisibleChanged", "onConfigure", "overscan"],
@@ -723,11 +724,11 @@
       value: measureContext
     }, /*#__PURE__*/React__default.createElement("div", {
       ref: scrollMonitor,
-      className: "vr-scroll-holder"
+      className: css["vr-scroll-holder"]
     }, /*#__PURE__*/React__default.createElement("div", {
       style: style
     }, /*#__PURE__*/React__default.createElement("div", {
-      className: "vr-items"
+      className: css["vr-items"]
     }, draw))));
 
     function render() {

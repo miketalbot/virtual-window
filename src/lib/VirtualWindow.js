@@ -33,7 +33,7 @@ import { useDebouncedRefresh } from "./useDebouncedRefresh"
 import { useScroll } from "./useScroll"
 import { RenderItem } from "./RenderItem"
 import { Simple } from "./Simple"
-import "./virtual-repeat.css"
+import css from "./virtual-repeat.css"
 
 export function VirtualWindow({
   children,
@@ -131,9 +131,9 @@ export function VirtualWindow({
 
   return (
     <MeasuredContext.Provider value={measureContext}>
-      <div ref={scrollMonitor} className="vr-scroll-holder">
+      <div ref={scrollMonitor} className={css["vr-scroll-holder"]}>
         <div style={style}>
-          <div className="vr-items">{draw}</div>
+          <div className={css["vr-items"]}>{draw}</div>
         </div>
       </div>
     </MeasuredContext.Provider>
