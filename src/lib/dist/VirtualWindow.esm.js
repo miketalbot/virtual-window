@@ -363,7 +363,7 @@ function Measured(_ref) {
     key: measureId,
     style: style,
     ref: attach
-  }, children);
+  }, children, "pweir-q2349");
 }
 
 var debounce = function debounce(fn, delay) {
@@ -669,14 +669,17 @@ function VirtualWindow(_ref) {
   previousTop.current = top;
   var expectedSize = Math.floor(measureContext.count > 2 ? measureContext.total / measureContext.count : itemSize);
 
-  var _useMemo = useMemo(render, [top, delta, props, expectedSize, totalCount, list, measureContext, windowHeight, item, overscan]),
+  var _useMemo = useMemo(render, [top, delta, expectedSize, totalCount, list, measureContext, windowHeight, item, overscan]),
       _useMemo2 = _slicedToArray(_useMemo, 2),
       draw = _useMemo2[0],
       visible = _useMemo2[1];
 
-  var totalHeight = Math.floor((totalCount - visible.length) * expectedSize + visible.reduce(function (c, a) {
+  var calculatedHeight = Math.floor((totalCount - visible.length) * expectedSize + visible.reduce(function (c, a) {
     return c + a.props.height;
   }, 0));
+  var totalHeight = useMemo(function () {
+    return calculatedHeight;
+  }, [Math.floor(expectedSize / 4), top]);
   lastRendered.current = visible;
   var last = visible[visible.length - 1];
 

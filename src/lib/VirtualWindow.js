@@ -26,8 +26,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org/>
 
 */
-import React from 'react'
-import { useMemo, useState, useRef, useEffect } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import { MeasuredContext } from "./Measured"
 import { useDebouncedRefresh } from "./useDebouncedRefresh"
 import { useScroll } from "./useScroll"
@@ -35,12 +34,12 @@ import { RenderItem } from "./RenderItem"
 import { Simple } from "./Simple"
 import css from "./virtual-repeat.css"
 
-export { useMeasurement } from './useMeasurement'
+export { useMeasurement } from "./useMeasurement"
 export { useScroll }
 export { useDebouncedRefresh }
 export { MeasuredContext }
-export { useObserver } from './useObserver'
-export { Measured } from './Measured'
+export { useObserver } from "./useObserver"
+export { Measured } from "./Measured"
 
 export function VirtualWindow({
   children,
@@ -55,7 +54,7 @@ export function VirtualWindow({
   ...props
 }) {
   // Configuration Phase
-  item = item || <Simple/>
+  item = item || <Simple />
   const [{ top = 0 }, setScrollInfo] = useState({})
   const previousTop = useRef(0)
   const changed = useDebouncedRefresh()
@@ -91,7 +90,6 @@ export function VirtualWindow({
   let [draw, visible] = useMemo(render, [
     top,
     delta,
-    props,
     expectedSize,
     totalCount,
     list,
@@ -101,9 +99,12 @@ export function VirtualWindow({
     overscan
   ])
 
-  const totalHeight = Math.floor(
+  const calculatedHeight = Math.floor(
     (totalCount - visible.length) * expectedSize +
       visible.reduce((c, a) => c + a.props.height, 0)
+  )
+  const totalHeight = useMemo(()=>
+    calculatedHeight, [Math.floor(expectedSize/4), top]
   )
 
   lastRendered.current = visible
@@ -139,7 +140,10 @@ export function VirtualWindow({
 
   return (
     <MeasuredContext.Provider value={measureContext}>
-      <div ref={scrollMonitor} className={`${className} ${css["vr-scroll-holder"]}`}>
+      <div
+        ref={scrollMonitor}
+        className={`${className} ${css["vr-scroll-holder"]}`}
+      >
         <div style={style}>
           <div className={`${className} ${css["vr-items"]}`}>{draw}</div>
         </div>
@@ -176,10 +180,10 @@ export function VirtualWindow({
         lastVisible = item
       }
     }
-    useEffect(() => onVisibleChanged(firstVisible, lastVisible), [
-      firstVisible,
-      lastVisible
-    ])
+    useEffect(
+      () => onVisibleChanged(firstVisible, lastVisible),
+      [firstVisible, lastVisible]
+    )
   }
 }
 
