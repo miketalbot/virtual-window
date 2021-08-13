@@ -1,6 +1,6 @@
 {
   "name": "virtual-window",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A React component that is able to create a virtual window into data or child components.",
   "main": "dist/VirtualWindow.cjs.js",
   "module": "dist/VirtualWindow.esm.js",
@@ -39,7 +39,7 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "push": "node ./node_modules/versiony-cli/bin/cli.js ./package.json --patch && npm run build && npm publish && git add . && git commit -am build",
+    "push": "node ./node_modules/versiony-cli/bin/cli.js ./package.json --patch && npm run build && npm publish && git add . && git commit -am build && git push",
     "dev": "rollup -c -w",
     "test": "node test/test.js",
     "pretest": "npm run build"
