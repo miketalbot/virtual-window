@@ -40,14 +40,14 @@ export function VirtualWindow({
   list = children?.length ? children : undefined,
   totalCount = 0,
   itemSize = 36,
-  item = <Simple />,
+  item,
   onVisibleChanged = () => {},
   onConfigure = () => {},
   overscan = 2,
   ...props
 }) {
   // Configuration Phase
-
+  item = item || <Simple/>
   const [{ top = 0 }, setScrollInfo] = useState({})
   const previousTop = useRef(0)
   const changed = useDebouncedRefresh()
