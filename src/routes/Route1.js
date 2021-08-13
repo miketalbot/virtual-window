@@ -1,7 +1,19 @@
-import { VirtualRepeat } from "lib/VirtualRepeat"
-import { useStyles } from "../App"
+import { VirtualWindow } from "lib/VirtualWindow"
+
 import { DummyItem } from "./DummyItem"
 import randomColor from "randomcolor"
+import { routes } from "./routes"
+import { makeStyles } from "@material-ui/core"
+
+const useStyles = makeStyles({
+  virtualBox: {
+    height: 370,
+    background: "#0002",
+    overflow: "auto"
+  }
+})
+
+routes["/route1"] = <Route1 />
 
 export const items = Array.from({ length: 2000 }, (_, i) => ({
   content: i,
@@ -14,7 +26,7 @@ export function Route1() {
   return (
     <div className="App">
       <div className={classes.virtualBox}>
-        <VirtualRepeat list={items} item={<DummyItem />} />
+        <VirtualWindow list={items} item={<DummyItem />} />
       </div>
     </div>
   )

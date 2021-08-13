@@ -1,6 +1,17 @@
-import { VirtualRepeat } from "lib/VirtualRepeat"
-import { useStyles } from "../App"
 import { VirtualItem } from "./VirtualItem"
+import { routes } from "./routes"
+import { makeStyles } from "@material-ui/core"
+import { VirtualWindow } from "lib/VirtualWindow"
+
+const useStyles = makeStyles({
+  virtualBox: {
+    height: 370,
+    background: "#0002",
+    overflow: "auto"
+  }
+})
+
+routes["/route3"] = <Route3 />
 
 export function Route3() {
   const classes = useStyles()
@@ -8,11 +19,7 @@ export function Route3() {
   return (
     <div className="App">
       <div className={classes.virtualBox}>
-        <VirtualRepeat
-          totalCount={5000000}
-          item={<VirtualItem />}
-          overscan={1}
-        />
+        <VirtualWindow totalCount={1500000} item={<VirtualItem />} />
       </div>
     </div>
   )

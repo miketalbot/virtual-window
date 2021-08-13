@@ -1,7 +1,19 @@
-import { VirtualRepeat } from "lib/VirtualRepeat"
-import { useStyles } from "../App"
+import { VirtualWindow } from "lib/VirtualWindow"
+
 import { DummyUser } from "./DummyUser"
 import { Buttons } from "./Buttons"
+import { routes } from "./routes"
+import { makeStyles } from "@material-ui/core"
+
+const useStyles = makeStyles({
+  virtualBox: {
+    height: 370,
+    background: "#0002",
+    overflow: "auto"
+  }
+})
+
+routes["/route2"] = <Route2 />
 
 export function Route2() {
   const classes = useStyles()
@@ -9,7 +21,7 @@ export function Route2() {
   return (
     <div className="App">
       <div className={classes.virtualBox}>
-        <VirtualRepeat overscan={3}>
+        <VirtualWindow overscan={3}>
           <DummyUser />
           <DummyUser />
           <DummyUser />
@@ -27,7 +39,7 @@ export function Route2() {
           <DummyUser />
           <DummyUser />
           <Buttons />
-        </VirtualRepeat>
+        </VirtualWindow>
       </div>
     </div>
   )
