@@ -35,6 +35,13 @@ import { RenderItem } from "./RenderItem"
 import { Simple } from "./Simple"
 import css from "./virtual-repeat.css"
 
+export { useMeasurement } from './useMeasurement'
+export { useScroll }
+export { useDebouncedRefresh }
+export { MeasuredContext }
+export { useObserver } from './useObserver'
+export { Measured } from './Measured'
+
 export function VirtualWindow({
   children,
   list = children?.length ? children : undefined,

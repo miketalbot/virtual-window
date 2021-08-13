@@ -879,7 +879,13 @@
     }
   }
 
+  exports.Measured = Measured;
+  exports.MeasuredContext = MeasuredContext;
   exports.VirtualWindow = VirtualWindow;
+  exports.useDebouncedRefresh = useDebouncedRefresh;
+  exports.useMeasurement = useMeasurement;
+  exports.useObserver = useObserver;
+  exports.useScroll = useScroll;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
