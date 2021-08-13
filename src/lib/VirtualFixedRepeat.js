@@ -31,7 +31,7 @@ import { useMemo, useState } from "react"
 import { useScroll } from "./useScroll"
 import { RenderItem } from "./RenderItem"
 import { Simple } from "./Simple"
-import "./virtual-repeat.css"
+import css from "./virtual-repeat.css"
 
 export function VirtualFixedRepeat({
   list,
@@ -73,9 +73,9 @@ export function VirtualFixedRepeat({
   const style = useMemo(() => ({ height: totalHeight }), [totalHeight])
 
   return (
-    <div ref={scrollMonitor} className={`${className} vr-scroll-holder`}>
+    <div ref={scrollMonitor} className={`${css["vr-scroll-holder"]}`}>
       <div style={style}>
-        <div className="vr-items">{draw}</div>
+        <div className={`${css["vr-items"]}`}>{draw}</div>
       </div>
     </div>
   )

@@ -40,6 +40,7 @@ export function VirtualWindow({
   list = children?.length ? children : undefined,
   totalCount = 0,
   itemSize = 36,
+  className = "",
   item,
   onVisibleChanged = () => {},
   onConfigure = () => {},
@@ -131,9 +132,9 @@ export function VirtualWindow({
 
   return (
     <MeasuredContext.Provider value={measureContext}>
-      <div ref={scrollMonitor} className={css["vr-scroll-holder"]}>
+      <div ref={scrollMonitor} className={`${className} ${css["vr-scroll-holder"]}`}>
         <div style={style}>
-          <div className={css["vr-items"]}>{draw}</div>
+          <div className={`${className} ${css["vr-items"]}`}>{draw}</div>
         </div>
       </div>
     </MeasuredContext.Provider>

@@ -621,7 +621,7 @@
   var css = {"vr-items":"virtual-repeat_vr-items__36v0F","vr-scroll-holder":"virtual-repeat_vr-scroll-holder__LtRmX"};
   styleInject(css_248z);
 
-  var _excluded = ["children", "list", "totalCount", "itemSize", "item", "onVisibleChanged", "onConfigure", "overscan"],
+  var _excluded = ["children", "list", "totalCount", "itemSize", "className", "item", "onVisibleChanged", "onConfigure", "overscan"],
       _excluded2 = ["windowHeight", "expectedSize", "rendered", "totalCount", "delta", "list", "overscan", "measureContext", "top"];
   function VirtualWindow(_ref) {
     var children = _ref.children,
@@ -631,6 +631,8 @@
         totalCount = _ref$totalCount === void 0 ? 0 : _ref$totalCount,
         _ref$itemSize = _ref.itemSize,
         itemSize = _ref$itemSize === void 0 ? 36 : _ref$itemSize,
+        _ref$className = _ref.className,
+        className = _ref$className === void 0 ? "" : _ref$className,
         item = _ref.item,
         _ref$onVisibleChanged = _ref.onVisibleChanged,
         onVisibleChanged = _ref$onVisibleChanged === void 0 ? function () {} : _ref$onVisibleChanged,
@@ -724,11 +726,11 @@
       value: measureContext
     }, /*#__PURE__*/React__default.createElement("div", {
       ref: scrollMonitor,
-      className: css["vr-scroll-holder"]
+      className: "".concat(className, " ").concat(css["vr-scroll-holder"])
     }, /*#__PURE__*/React__default.createElement("div", {
       style: style
     }, /*#__PURE__*/React__default.createElement("div", {
-      className: css["vr-items"]
+      className: "".concat(className, " ").concat(css["vr-items"])
     }, draw))));
 
     function render() {
