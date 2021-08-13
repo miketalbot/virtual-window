@@ -26,7 +26,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org/>
 
 */
-
+import React from 'react'
 export function Simple({ item }) {
   return item || null
 }

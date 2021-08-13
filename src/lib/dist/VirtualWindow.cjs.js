@@ -2,7 +2,10 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var react = require('react');
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var React = require('react');
+var React__default = _interopDefault(React);
 
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
@@ -262,12 +265,12 @@ function _createForOfIteratorHelper(o, allowArrayLike) {
 function useObserver(measure) {
   var deps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
-  var _measure = react.useCallback(measureFirstItem, [measure].concat(_toConsumableArray(deps)));
+  var _measure = React.useCallback(measureFirstItem, [measure].concat(_toConsumableArray(deps)));
 
-  var observer = react.useMemo(function () {
+  var observer = React.useMemo(function () {
     return new ResizeObserver(_measure);
   }, [_measure].concat(_toConsumableArray(deps)));
-  react.useEffect(function () {
+  React.useEffect(function () {
     return function () {
       observer.disconnect();
     };
@@ -281,21 +284,21 @@ function useObserver(measure) {
 }
 
 function useMeasurement() {
-  var measure = react.useCallback(measureItem, []);
+  var measure = React.useCallback(measureItem, []);
   var observer = useObserver(measure, []);
-  var currentTarget = react.useRef(null); // a ref is just a function that is called
+  var currentTarget = React.useRef(null); // a ref is just a function that is called
   // by React when an element is mounted
   // we use this to create an attach method
   // that immediately observes the size
   // of the reference
 
-  var attach = react.useCallback(function attach(target) {
+  var attach = React.useCallback(function attach(target) {
     if (!target) return;
     currentTarget.current = target;
     observer.observe(target);
   }, [observer]);
 
-  var _useState = react.useState({}),
+  var _useState = React.useState({}),
       _useState2 = _slicedToArray(_useState, 2),
       size = _useState2[0],
       setSize = _useState2[1]; // Return the size, the attach ref and the current
@@ -322,7 +325,7 @@ function useMeasurement() {
   }
 }
 
-var MeasuredContext = /*#__PURE__*/react.createContext({
+var MeasuredContext = /*#__PURE__*/React.createContext({
   sizes: {},
   measuredId: 1,
   total: 0,
@@ -337,9 +340,9 @@ function Measured(_ref) {
   var children = _ref.children,
       style = _ref.style,
       id = _ref.id;
-  var context = react.useContext(MeasuredContext);
+  var context = React.useContext(MeasuredContext);
 
-  var _useState = react.useState(function () {
+  var _useState = React.useState(function () {
     return id === undefined ? context.measureId++ : id;
   }),
       _useState2 = _slicedToArray(_useState, 1),
@@ -363,7 +366,7 @@ function Measured(_ref) {
     context.changed();
   }
 
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     key: measureId,
     style: style,
     ref: attach
@@ -385,13 +388,13 @@ var debounce = function debounce(fn, delay) {
 };
 
 function useDebouncedRefresh() {
-  var _useState = react.useState(0),
+  var _useState = React.useState(0),
       _useState2 = _slicedToArray(_useState, 2),
       refresh = _useState2[0],
       setRefresh = _useState2[1]; // eslint-disable-next-line react-hooks/exhaustive-deps
 
 
-  var changed = react.useCallback(debounce(function () {
+  var changed = React.useCallback(debounce(function () {
     return setRefresh(function (i) {
       return i + 1;
     });
@@ -441,16 +444,16 @@ function scope() {
 var AVOID_DIVIDE_BY_ZERO = 0.001;
 function useScroll(whenScrolled) {
   var observer = useObserver(measure);
-  var scrollCallback = react.useRef();
+  var scrollCallback = React.useRef();
   scrollCallback.current = whenScrolled;
 
-  var _useState = react.useState(AVOID_DIVIDE_BY_ZERO),
+  var _useState = React.useState(AVOID_DIVIDE_BY_ZERO),
       _useState2 = _slicedToArray(_useState, 2),
       windowHeight = _useState2[0],
       setWindowHeight = _useState2[1];
 
-  var scroller = react.useRef();
-  react.useEffect(configure, [observer]);
+  var scroller = React.useRef();
+  React.useEffect(configure, [observer]);
   return [scroller, windowHeight, scroller.current];
 
   function configure() {
@@ -539,7 +542,7 @@ function RenderItem(_ref) {
       _ref$pass = _ref.pass,
       pass = _ref$pass === void 0 ? "item" : _ref$pass,
       index = _ref.index;
-  var style = react.useMemo(function () {
+  var style = React.useMemo(function () {
     return {
       top: top + offset,
       position: "absolute",
@@ -547,10 +550,10 @@ function RenderItem(_ref) {
       opacity: visible ? 1 : 0
     };
   }, [top, visible, offset]);
-  return /*#__PURE__*/React.createElement(Measured, {
+  return /*#__PURE__*/React__default.createElement(Measured, {
     id: index,
     style: style
-  }, /*#__PURE__*/React.createElement(item.type, _extends({
+  }, /*#__PURE__*/React__default.createElement(item.type, _extends({
     key: data ? keyFn(data) || index : index
   }, _objectSpread2(_objectSpread2({}, item.props), {}, (_objectSpread2$1 = {}, _defineProperty(_objectSpread2$1, pass, data), _defineProperty(_objectSpread2$1, "index", index), _objectSpread2$1)))));
 }
@@ -608,17 +611,17 @@ function VirtualWindow(_ref) {
       props = _objectWithoutProperties(_ref, _excluded);
 
   // Configuration Phase
-  item = item || /*#__PURE__*/React.createElement(Simple, null);
+  item = item || /*#__PURE__*/React__default.createElement(Simple, null);
 
-  var _useState = react.useState({}),
+  var _useState = React.useState({}),
       _useState2 = _slicedToArray(_useState, 2),
       _useState2$0$top = _useState2[0].top,
       top = _useState2$0$top === void 0 ? 0 : _useState2$0$top,
       setScrollInfo = _useState2[1];
 
-  var previousTop = react.useRef(0);
+  var previousTop = React.useRef(0);
   var changed = useDebouncedRefresh();
-  var lastRendered = react.useRef([]);
+  var lastRendered = React.useRef([]);
 
   var _useScroll = useScroll(setScrollInfo),
       _useScroll2 = _slicedToArray(_useScroll, 3),
@@ -626,7 +629,7 @@ function VirtualWindow(_ref) {
       windowHeight = _useScroll2[1],
       scrollingElement = _useScroll2[2];
 
-  var measureContext = react.useMemo(function () {
+  var measureContext = React.useMemo(function () {
     return {
       sizes: {},
       changed: changed,
@@ -640,7 +643,7 @@ function VirtualWindow(_ref) {
   previousTop.current = top;
   var expectedSize = Math.floor(measureContext.count > 2 ? measureContext.total / measureContext.count : itemSize);
 
-  var _useMemo = react.useMemo(render, [top, delta, props, expectedSize, totalCount, list, measureContext, windowHeight, item, overscan]),
+  var _useMemo = React.useMemo(render, [top, delta, props, expectedSize, totalCount, list, measureContext, windowHeight, item, overscan]),
       _useMemo2 = _slicedToArray(_useMemo, 2),
       draw = _useMemo2[0],
       visible = _useMemo2[1];
@@ -675,26 +678,26 @@ function VirtualWindow(_ref) {
 
 
   useVisibilityEvents();
-  react.useEffect(function () {
+  React.useEffect(function () {
     return onConfigure({
       expectedSize: expectedSize,
       scrollingElement: scrollingElement
     });
   }, [expectedSize, scrollingElement, onConfigure]); // Render Phase
 
-  var style = react.useMemo(function () {
+  var style = React.useMemo(function () {
     return {
       height: totalHeight
     };
   }, [totalHeight]);
-  return /*#__PURE__*/React.createElement(MeasuredContext.Provider, {
+  return /*#__PURE__*/React__default.createElement(MeasuredContext.Provider, {
     value: measureContext
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     ref: scrollMonitor,
     className: "vr-scroll-holder"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     style: style
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "vr-items"
   }, draw))));
 
@@ -736,7 +739,7 @@ function VirtualWindow(_ref) {
       _iterator.f();
     }
 
-    react.useEffect(function () {
+    React.useEffect(function () {
       return onVisibleChanged(firstVisible, lastVisible);
     }, [firstVisible, lastVisible]);
   }
@@ -815,7 +818,7 @@ function renderItems(_ref2) {
         start += (height || expectedSize) * direction;
       }
 
-      var item = /*#__PURE__*/React.createElement(RenderItem, _extends({}, props, {
+      var item = /*#__PURE__*/React__default.createElement(RenderItem, _extends({}, props, {
         visible: adding,
         height: height,
         top: start,
