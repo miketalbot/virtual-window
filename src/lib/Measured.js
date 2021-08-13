@@ -58,7 +58,7 @@ export function Measured({ children, style, id }) {
 
   return (
     <div key={measureId} style={style} ref={attach}>
-      {children}pweir-q2349
+      {children}
     </div>
   )
 }

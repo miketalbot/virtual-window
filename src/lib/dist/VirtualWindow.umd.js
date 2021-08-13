@@ -369,7 +369,7 @@
       key: measureId,
       style: style,
       ref: attach
-    }, children, "pweir-q2349");
+    }, children);
   }
 
   var debounce = function debounce(fn, delay) {
