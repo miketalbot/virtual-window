@@ -630,8 +630,7 @@
       _excluded2 = ["windowHeight", "expectedSize", "rendered", "totalCount", "delta", "list", "overscan", "measureContext", "top"];
   function VirtualWindow(_ref) {
     var children = _ref.children,
-        _ref$list = _ref.list,
-        list = _ref$list === void 0 ? children !== null && children !== void 0 && children.length ? children : undefined : _ref$list,
+        list = _ref.list,
         _ref$totalCount = _ref.totalCount,
         totalCount = _ref$totalCount === void 0 ? 0 : _ref$totalCount,
         _ref$itemSize = _ref.itemSize,
@@ -648,6 +647,9 @@
         props = _objectWithoutProperties(_ref, _excluded);
 
     // Configuration Phase
+    // Configuration Phase
+    children = Array.isArray(children) ? children : children ? [children] : undefined;
+    list = list || (children.length > 0 ? children : undefined);
     item = item || /*#__PURE__*/React__default.createElement(Simple, null);
 
     var _useState = React.useState({}),
@@ -678,19 +680,21 @@
 
     var delta = Math.floor(previousTop.current - top);
     previousTop.current = top;
-    var expectedSize = Math.floor(measureContext.count > 2 ? measureContext.total / measureContext.count : itemSize);
+    var expectedSize = Math.floor(measureContext.count > 2 ? measureContext.total / measureContext.count : itemSize); //eslint-disable-next-line react-hooks/exhaustive-deps
 
-    var _useMemo = React.useMemo(render, [top, delta, expectedSize, totalCount, list, measureContext, windowHeight, item, overscan]),
+    var _useMemo = React.useMemo(render, [top, delta, expectedSize, totalCount, list, measureContext, windowHeight, measureContext.count, item, overscan]),
         _useMemo2 = _slicedToArray(_useMemo, 2),
         draw = _useMemo2[0],
         visible = _useMemo2[1];
 
     var calculatedHeight = Math.floor((totalCount - visible.length) * expectedSize + visible.reduce(function (c, a) {
       return c + a.props.height;
-    }, 0));
+    }, 0)); //eslint-disable-next-line react-hooks/exhaustive-deps
+
     var totalHeight = React.useMemo(function () {
       return calculatedHeight;
-    }, [Math.floor(expectedSize / 4), top]);
+    }, [//eslint-disable-next-line react-hooks/exhaustive-deps
+    Math.floor(expectedSize / 4), top]);
     lastRendered.current = visible;
     var last = visible[visible.length - 1];
 

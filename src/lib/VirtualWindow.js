@@ -42,18 +42,28 @@ export { useObserver } from "./useObserver"
 export { Measured } from "./Measured"
 
 export function VirtualWindow({
-  children,
-  list = children?.length ? children : undefined,
-  totalCount = 0,
-  itemSize = 36,
-  className = "",
-  item,
-  onVisibleChanged = () => {},
-  onConfigure = () => {},
-  overscan = 2,
-  ...props
-}) {
+                                children,
+                                list,
+                                totalCount = 0,
+                                itemSize = 36,
+                                className = "",
+                                item,
+                                onVisibleChanged = () => {
+                                },
+                                onConfigure = () => {
+                                },
+                                overscan = 2,
+                                ...props
+                              }) {
   // Configuration Phase
+  // Configuration Phase
+  children = Array.isArray(children)
+    ? children
+    : children
+      ? [children]
+      : undefined
+
+  list = list || (children.length > 0 ? children : undefined)
   item = item || <Simple />
   const [{ top = 0 }, setScrollInfo] = useState({})
   const previousTop = useRef(0)
@@ -87,6 +97,7 @@ export function VirtualWindow({
       : itemSize
   )
 
+  //eslint-disable-next-line react-hooks/exhaustive-deps
   let [draw, visible] = useMemo(render, [
     top,
     delta,
@@ -95,17 +106,21 @@ export function VirtualWindow({
     list,
     measureContext,
     windowHeight,
+    measureContext.count,
     item,
     overscan
   ])
 
   const calculatedHeight = Math.floor(
     (totalCount - visible.length) * expectedSize +
-      visible.reduce((c, a) => c + a.props.height, 0)
+    visible.reduce((c, a) => c + a.props.height, 0)
   )
-  const totalHeight = useMemo(()=>
-    calculatedHeight, [Math.floor(expectedSize/4), top]
-  )
+  //eslint-disable-next-line react-hooks/exhaustive-deps
+  const totalHeight = useMemo(() => calculatedHeight, [
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+    Math.floor(expectedSize / 4),
+    top
+  ])
 
   lastRendered.current = visible
   const last = visible[visible.length - 1]
@@ -180,25 +195,25 @@ export function VirtualWindow({
         lastVisible = item
       }
     }
-    useEffect(
-      () => onVisibleChanged(firstVisible, lastVisible),
-      [firstVisible, lastVisible]
-    )
+    useEffect(() => onVisibleChanged(firstVisible, lastVisible), [
+      firstVisible,
+      lastVisible
+    ])
   }
 }
 
 function renderItems({
-  windowHeight,
-  expectedSize,
-  rendered,
-  totalCount,
-  delta,
-  list,
-  overscan = 2,
-  measureContext,
-  top,
-  ...props
-}) {
+                       windowHeight,
+                       expectedSize,
+                       rendered,
+                       totalCount,
+                       delta,
+                       list,
+                       overscan = 2,
+                       measureContext,
+                       top,
+                       ...props
+                     }) {
   if (windowHeight < 1) return [[], []]
   const { sizes } = measureContext
   if (
