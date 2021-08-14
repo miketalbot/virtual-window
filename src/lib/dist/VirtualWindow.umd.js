@@ -459,9 +459,7 @@
       if (!scroller.current) return;
       var observed = scroller.current;
       observer.observe(observed);
-      observed.addEventListener("scroll", handleScroll, {
-        passive: true
-      });
+      observed.addEventListener("scroll", handleScroll);
       return function () {
         observed.removeEventListener("scroll", handleScroll);
       };

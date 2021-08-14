@@ -47,7 +47,7 @@ export function useScroll(whenScrolled) {
     if (!scroller.current) return
     let observed = scroller.current
     observer.observe(observed)
-    observed.addEventListener("scroll", handleScroll, { passive: true })
+    observed.addEventListener("scroll", handleScroll)
     return () => {
       observed.removeEventListener("scroll", handleScroll)
     }
