@@ -446,6 +446,7 @@ function useScroll(whenScrolled) {
   var observer = useObserver(measure);
   var scrollCallback = React.useRef();
   scrollCallback.current = whenScrolled;
+  var requested = React.useRef(false);
 
   var _useState = React.useState(AVOID_DIVIDE_BY_ZERO),
       _useState2 = _slicedToArray(_useState, 2),
@@ -466,16 +467,22 @@ function useScroll(whenScrolled) {
     };
 
     function handleScroll(event) {
-      if (scrollCallback.current) {
-        scope(event.target)(function (_) {
-          scrollCallback.current({
-            top: Math.floor(_.scrollTop),
-            left: Math.floor(_.scrollLeft),
-            height: _.scrollHeight,
-            width: _.scrollWidth
+      if (requested.current) return;
+      requested.current = true;
+      requestAnimationFrame(function () {
+        requested.current = false;
+
+        if (scrollCallback.current) {
+          scope(event.target)(function (_) {
+            scrollCallback.current({
+              top: Math.floor(_.scrollTop),
+              left: Math.floor(_.scrollLeft),
+              height: _.scrollHeight,
+              width: _.scrollWidth
+            });
           });
-        });
-      }
+        }
+      });
     }
   }
 

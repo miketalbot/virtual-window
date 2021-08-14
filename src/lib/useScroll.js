@@ -37,6 +37,7 @@ export function useScroll(whenScrolled) {
   const observer = useObserver(measure)
   const scrollCallback = useRef()
   scrollCallback.current = whenScrolled
+  const requested = useRef(false)
 
   const [windowHeight, setWindowHeight] = useState(AVOID_DIVIDE_BY_ZERO)
   const scroller = useRef()
@@ -53,16 +54,21 @@ export function useScroll(whenScrolled) {
     }
 
     function handleScroll(event) {
-      if (scrollCallback.current) {
-        _(event.target)(_ => {
-          scrollCallback.current({
-            top: Math.floor(_.scrollTop),
-            left: Math.floor(_.scrollLeft),
-            height: _.scrollHeight,
-            width: _.scrollWidth
+      if (requested.current) return
+      requested.current = true
+      requestAnimationFrame(() => {
+        requested.current = false
+        if (scrollCallback.current) {
+          _(event.target)(_ => {
+            scrollCallback.current({
+              top: Math.floor(_.scrollTop),
+              left: Math.floor(_.scrollLeft),
+              height: _.scrollHeight,
+              width: _.scrollWidth
+            })
           })
-        })
-      }
+        }
+      })
     }
   }
 
