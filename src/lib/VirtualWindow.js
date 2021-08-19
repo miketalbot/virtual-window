@@ -92,7 +92,7 @@ export function VirtualWindow({
   previousTop.current = top
 
   const expectedSize = Math.floor(
-    measureContext.count > 2
+    measureContext.count > 0
       ? measureContext.total / measureContext.count
       : itemSize
   )

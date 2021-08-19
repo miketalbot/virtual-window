@@ -681,7 +681,7 @@ function VirtualWindow(_ref) {
 
   var delta = Math.floor(previousTop.current - top);
   previousTop.current = top;
-  var expectedSize = Math.floor(measureContext.count > 2 ? measureContext.total / measureContext.count : itemSize); //eslint-disable-next-line react-hooks/exhaustive-deps
+  var expectedSize = Math.floor(measureContext.count > 0 ? measureContext.total / measureContext.count : itemSize); //eslint-disable-next-line react-hooks/exhaustive-deps
 
   var _useMemo = React.useMemo(render, [top, delta, expectedSize, totalCount, list, measureContext, windowHeight, measureContext.count, item, overscan]),
       _useMemo2 = _slicedToArray(_useMemo, 2),
