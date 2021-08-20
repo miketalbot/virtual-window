@@ -534,8 +534,6 @@
   }
 
   function RenderItem(_ref) {
-    var _objectSpread2$1;
-
     var data = _ref.data,
         top = _ref.top,
         offset = _ref.offset,
@@ -546,6 +544,16 @@
         _ref$pass = _ref.pass,
         pass = _ref$pass === void 0 ? "item" : _ref$pass,
         index = _ref.index;
+    var props = React.useMemo(function () {
+      var _objectSpread2$1;
+
+      return _objectSpread2(_objectSpread2({}, item.props), {}, (_objectSpread2$1 = {}, _defineProperty(_objectSpread2$1, pass, data), _defineProperty(_objectSpread2$1, "index", index), _objectSpread2$1));
+    }, [pass, item, index, data]);
+    var key = React.useMemo(function () {
+      var _keyFn;
+
+      return data ? (_keyFn = keyFn(data)) !== null && _keyFn !== void 0 ? _keyFn : index : index;
+    }, [data, index, keyFn]);
     var style = React.useMemo(function () {
       return {
         top: top + offset,
@@ -558,8 +566,8 @@
       id: index,
       style: style
     }, /*#__PURE__*/React__default.createElement(item.type, _extends({
-      key: data ? keyFn(data) || index : index
-    }, _objectSpread2(_objectSpread2({}, item.props), {}, (_objectSpread2$1 = {}, _defineProperty(_objectSpread2$1, pass, data), _defineProperty(_objectSpread2$1, "index", index), _objectSpread2$1)))));
+      key: key
+    }, props)));
   }
 
   /*
@@ -629,6 +637,8 @@
   var _excluded = ["children", "list", "totalCount", "itemSize", "className", "item", "onVisibleChanged", "onConfigure", "overscan"],
       _excluded2 = ["windowHeight", "expectedSize", "rendered", "totalCount", "delta", "list", "overscan", "measureContext", "top"];
   function VirtualWindow(_ref) {
+    var _children;
+
     var children = _ref.children,
         list = _ref.list,
         _ref$totalCount = _ref.totalCount,
@@ -647,9 +657,8 @@
         props = _objectWithoutProperties(_ref, _excluded);
 
     // Configuration Phase
-    // Configuration Phase
     children = Array.isArray(children) ? children : children ? [children] : undefined;
-    list = list || (children.length > 0 ? children : undefined);
+    list = list || (((_children = children) === null || _children === void 0 ? void 0 : _children.length) > 0 ? children : undefined);
     item = item || /*#__PURE__*/React__default.createElement(Simple, null);
 
     var _useState = React.useState({}),
@@ -848,8 +857,9 @@
       var draw = [];
       var renderedVisible = [];
       var adding = true;
+      var max = 400;
 
-      for (; scan >= 0 && start > -windowHeight * overscan && scan < totalCount && start < windowHeight * (1 + overscan); scan += direction) {
+      for (; max-- && scan >= 0 && start > -windowHeight * overscan && scan < totalCount && start < windowHeight * (1 + overscan); scan += direction) {
         var _sizes$scan;
 
         var height = (_sizes$scan = sizes[scan]) === null || _sizes$scan === void 0 ? void 0 : _sizes$scan.height;
@@ -859,7 +869,7 @@
         }
 
         if (direction < 0) {
-          start += (height || expectedSize) * direction;
+          start += (height || Math.max(8, expectedSize)) * direction;
         }
 
         var item = /*#__PURE__*/React__default.createElement(RenderItem, _extends({}, props, {
@@ -873,7 +883,7 @@
         }));
 
         if (direction > 0) {
-          start += (height || expectedSize) * direction;
+          start += (height || Math.max(8, expectedSize)) * direction;
         }
 
         if (adding) {
