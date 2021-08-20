@@ -26,7 +26,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org/>
 
 */
-import React from 'react'
+import React from "react"
 import { useMemo } from "react"
 import { Measured } from "./Measured"
 import { getKey } from "./getKey"
@@ -41,6 +41,12 @@ export function RenderItem({
   pass = "item",
   index
 }) {
+  const props = useMemo(() => {
+    return { ...item.props, [pass]: data, index }
+  }, [pass, item, index, data])
+  const key = useMemo(() => {
+    return data ? keyFn(data) ?? index : index
+  }, [data, index, keyFn])
   const style = useMemo(
     () => ({
       top: top + offset,
@@ -53,10 +59,7 @@ export function RenderItem({
 
   return (
     <Measured id={index} style={style}>
-      <item.type
-        key={data ? keyFn(data) || index : index}
-        {...{ ...item.props, [pass]: data, index }}
-      />
+      <item.type key={key} {...props} />
     </Measured>
   )
 }

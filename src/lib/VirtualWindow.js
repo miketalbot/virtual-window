@@ -42,26 +42,23 @@ export { useObserver } from "./useObserver"
 export { Measured } from "./Measured"
 
 export function VirtualWindow({
-                                children,
-                                list,
-                                totalCount = 0,
-                                itemSize = 36,
-                                className = "",
-                                item,
-                                onVisibleChanged = () => {
-                                },
-                                onConfigure = () => {
-                                },
-                                overscan = 2,
-                                ...props
-                              }) {
-  // Configuration Phase
+  children,
+  list,
+  totalCount = 0,
+  itemSize = 36,
+  className = "",
+  item,
+  onVisibleChanged = () => {},
+  onConfigure = () => {},
+  overscan = 2,
+  ...props
+}) {
   // Configuration Phase
   children = Array.isArray(children)
     ? children
     : children
-      ? [children]
-      : undefined
+    ? [children]
+    : undefined
 
   list = list || (children.length > 0 ? children : undefined)
   item = item || <Simple />
@@ -113,7 +110,7 @@ export function VirtualWindow({
 
   const calculatedHeight = Math.floor(
     (totalCount - visible.length) * expectedSize +
-    visible.reduce((c, a) => c + a.props.height, 0)
+      visible.reduce((c, a) => c + a.props.height, 0)
   )
   //eslint-disable-next-line react-hooks/exhaustive-deps
   const totalHeight = useMemo(() => calculatedHeight, [
@@ -203,17 +200,17 @@ export function VirtualWindow({
 }
 
 function renderItems({
-                       windowHeight,
-                       expectedSize,
-                       rendered,
-                       totalCount,
-                       delta,
-                       list,
-                       overscan = 2,
-                       measureContext,
-                       top,
-                       ...props
-                     }) {
+  windowHeight,
+  expectedSize,
+  rendered,
+  totalCount,
+  delta,
+  list,
+  overscan = 2,
+  measureContext,
+  top,
+  ...props
+}) {
   if (windowHeight < 1) return [[], []]
   const { sizes } = measureContext
   if (
