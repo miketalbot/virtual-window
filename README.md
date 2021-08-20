@@ -1,5 +1,8 @@
 # virtual-window
 
+A list virtualiser that can create virtual rows out of arrays or a total count, or virtualise an arbitrary set
+of React components.
+
 For background on this
 component, [see this Dev.to Article](https://dev.to/miketalbot/react-virtual-window-virtualise-anything-for-a-performance-boost-full-tutorial-3moe)
 .
